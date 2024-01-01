@@ -1,6 +1,6 @@
 export type Settings = {
 	length: number;
-	lowercase: string;
+	lowercase: boolean;
 	uppercase: boolean;
 	digits: boolean;
 	specialCharacters: boolean;
