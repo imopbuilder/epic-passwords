@@ -22,6 +22,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 				},
 			}}
 			position='top-center'
+			richColors
 			{...props}
 		/>
 	);
