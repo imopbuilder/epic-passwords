@@ -69,7 +69,7 @@ function GeneratePasswordForm() {
 						className='ml-auto invisible -translate-x-2 duration-100 scale-x-90 opacity-0 group-hover:visible group-hover:-translate-x-0 group-hover:opacity-100'
 					/>
 				</Button>
-				<Button className='w-full group' size='lg' onClick={handleCopyPassword}>
+				<Button className='w-full group' size='lg' variant='secondary' onClick={handleCopyPassword}>
 					Copy Password
 					<Copy
 						size={16}
