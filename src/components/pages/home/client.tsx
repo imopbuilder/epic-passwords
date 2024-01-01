@@ -11,17 +11,9 @@ import { getLetterMix } from '@/lib/utils/get-letter-mix';
 import { Copy, MoveRight } from 'lucide-react';
 import { useState } from 'react';
 
-export function HomeClient() {
-	return (
-		<div>
-			<GeneratePasswordForm />
-		</div>
-	);
-}
-
-function GeneratePasswordForm() {
+export function GeneratePasswordForm({ initialPassword }: { initialPassword: string }) {
 	const { handleCopy } = useCopy();
-	const [password, setPassword] = useState('some random password');
+	const [password, setPassword] = useState(initialPassword);
 
 	const [progress, setProgress] = useState(13);
 	const [lowercase, setlowercase] = useState(true);
@@ -51,10 +43,6 @@ function GeneratePasswordForm() {
 		const generatedPassword = generateStrongPassword(settings, LETTER_MIX);
 		setPassword(generatedPassword);
 		setLoading(false);
-	}
-
-	function handleCopyPassword() {
-		handleCopy(password);
 	}
 
 	return (
@@ -103,7 +91,7 @@ function GeneratePasswordForm() {
 						className='ml-auto invisible -translate-x-2 duration-100 scale-x-90 opacity-0 group-hover:visible group-hover:-translate-x-0 group-hover:opacity-100'
 					/>
 				</Button>
-				<Button className='w-full group' size='lg' variant='secondary' onClick={handleCopyPassword}>
+				<Button className='w-full group' size='lg' variant='secondary' onClick={() => handleCopy(password)}>
 					Copy Password
 					<Copy
 						size={16}

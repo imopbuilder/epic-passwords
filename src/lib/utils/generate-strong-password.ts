@@ -1,4 +1,5 @@
 import { CHARS } from '@/constants/app';
+import crypto from 'crypto';
 import { type Settings } from '../types';
 
 // lowercase
@@ -33,11 +34,12 @@ function isValidPassword(password: string, settings: Settings) {
 export function generateStrongPassword(settings: Settings, LETTERS_MIX: string[]): string {
 	const buff = new Uint8Array(settings.length);
 	const CHARS_LENGTH = LETTERS_MIX.length;
+	const getCrypto = typeof window !== 'undefined' ? window.crypto : crypto;
 
 	let generatedPassword = '';
 
 	do {
-		window.crypto.getRandomValues(buff);
+		(getCrypto as Crypto).getRandomValues(buff);
 		generatedPassword = [...buff].map((x) => LETTERS_MIX[x % CHARS_LENGTH]).join('');
 	} while (!isValidPassword(generatedPassword, settings));
 
