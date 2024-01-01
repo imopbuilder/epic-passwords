@@ -1,5 +1,6 @@
 import ReduxProvider from '@/client/providers/redux-provider';
 import { ThemeProvider } from '@/client/providers/theme-provider';
+import '@/styles/main.scss';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
