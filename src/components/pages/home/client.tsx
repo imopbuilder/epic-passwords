@@ -6,8 +6,10 @@ import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
+import { generateStrongPassword } from '@/lib/utils/generate-strong-password';
+import { getLetterMix } from '@/lib/utils/get-letter-mix';
 import { Copy, MoveRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export function HomeClient() {
 	return (
@@ -19,7 +21,7 @@ export function HomeClient() {
 
 function GeneratePasswordForm() {
 	const { handleCopy } = useCopy();
-	const [password, setPassword] = useState('');
+	const [password, setPassword] = useState('some random password');
 
 	const [progress, setProgress] = useState(13);
 	const [lowercase, setlowercase] = useState(true);
@@ -28,17 +30,32 @@ function GeneratePasswordForm() {
 	const [specialCharacters, setSpecialCharacters] = useState(true);
 	const [length, setLength] = useState(8);
 
+	const [loading, setLoading] = useState(false);
+
 	function handleGeneratePassword() {
-		console.log(lowercase, uppercase, digits, specialCharacters);
+		setLoading(true);
+
+		// Settings to generate the password
+		const settings = {
+			length,
+			lowercase,
+			uppercase,
+			digits,
+			specialCharacters,
+		};
+
+		// Get the letters in array of string based on the settings
+		const LETTER_MIX = getLetterMix(settings);
+
+		// Generate strong password based on the LETTER_MIX and settings
+		const generatedPassword = generateStrongPassword(settings, LETTER_MIX);
+		setPassword(generatedPassword);
+		setLoading(false);
 	}
 
 	function handleCopyPassword() {
 		handleCopy(password);
 	}
-
-	useEffect(() => {
-		setPassword('some random password');
-	}, []);
 
 	return (
 		<div>
@@ -78,7 +95,7 @@ function GeneratePasswordForm() {
 						onValueChange={(val) => setLength(Math.max(val[0], 8))}
 					/>
 				</div>
-				<Button className='w-full group' size='lg' onClick={handleGeneratePassword}>
+				<Button className='w-full group' size='lg' onClick={handleGeneratePassword} disabled={loading}>
 					Generate Password
 					<MoveRight
 						size={16}
