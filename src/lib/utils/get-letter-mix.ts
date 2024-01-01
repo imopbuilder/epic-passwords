@@ -1,5 +1,5 @@
 import { CHARS } from '@/constants/app';
-import { Settings } from '../types';
+import { type Settings } from '../types';
 
 export function getLetterMix(settings: Settings) {
 	const { length, ...rest } = settings;
