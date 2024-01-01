@@ -2,7 +2,9 @@ import { CHARS } from '@/constants/app';
 import { Settings } from '../types';
 
 export function getLetterMix(settings: Settings) {
-	const val = Object.entries(settings)
+	const { length, ...rest } = settings;
+
+	const val = Object.entries(rest)
 		.filter(([_, value]) => value)
 		.map(([key]) => CHARS[key as keyof typeof CHARS])
 		.reduce((a, b) => a.concat(b));
