@@ -41,26 +41,28 @@ function GeneratePasswordForm() {
 
 	return (
 		<div>
-			<p className='p-2 border rounded-md mb-5 text-muted-foreground text-sm h-10 flex items-center justify-start'>{password}</p>
-			<div className='space-y-5'>
-				<Progress value={progress} className='w-full' />
-				<div className='flex items-center justify-between'>
+			<p className='p-2 px-3 border rounded-md mb-3 text-muted-foreground text-sm h-11 flex items-center justify-start'>{password}</p>
+			<div className='space-y-3'>
+				<div className='pb-2'>
+					<Progress className='w-full' value={progress} />
+				</div>
+				<div className='flex items-center justify-between border p-3 rounded-sm'>
 					<Label htmlFor='lowercase-letters'>Lowercase Letters</Label>
 					<Switch id='lowercase-letters' checked={lowercase} onCheckedChange={setlowercase} />
 				</div>
-				<div className='flex items-center justify-between'>
+				<div className='flex items-center justify-between border p-3 rounded-sm'>
 					<Label htmlFor='uppercase-letters'>Uppercase Letters</Label>
 					<Switch id='uppercase-letters' checked={uppercase} onCheckedChange={setUppercase} />
 				</div>
-				<div className='flex items-center justify-between'>
+				<div className='flex items-center justify-between border p-3 rounded-sm'>
 					<Label htmlFor='digits'>Digits</Label>
 					<Switch id='digits' checked={digits} onCheckedChange={setDigits} />
 				</div>
-				<div className='flex items-center justify-between'>
+				<div className='flex items-center justify-between border p-3 rounded-sm'>
 					<Label htmlFor='special-characters'>Special Characters</Label>
 					<Switch id='special-characters' checked={specialCharacters} onCheckedChange={setSpecialCharacters} />
 				</div>
-				<Slider defaultValue={[50]} max={100} step={1} />
+				<Slider className='py-2' defaultValue={[50]} max={100} step={1} />
 				<Button className='w-full group' size='lg' onClick={handleGeneratePassword}>
 					Generate Password
 					<MoveRight
