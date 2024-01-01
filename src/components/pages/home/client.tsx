@@ -4,6 +4,7 @@ import { useCopy } from '@/client/hooks/use-copy.hook';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
+import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Copy, MoveRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -59,6 +60,7 @@ function GeneratePasswordForm() {
 					<Label htmlFor='special-characters'>Special Characters</Label>
 					<Switch id='special-characters' checked={specialCharacters} onCheckedChange={setSpecialCharacters} />
 				</div>
+				<Slider defaultValue={[50]} max={100} step={1} />
 				<Button className='w-full group' size='lg' onClick={handleGeneratePassword}>
 					Generate Password
 					<MoveRight
