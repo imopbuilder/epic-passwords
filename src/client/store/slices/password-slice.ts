@@ -1,22 +1,22 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface ClientState {
-	id: string | null;
+	showGenerator: boolean;
 }
 
 const initialState: ClientState = {
-	id: null,
+	showGenerator: false,
 };
 
 const slice = createSlice({
 	name: 'client',
 	initialState,
 	reducers: {
-		setid: (state, action: PayloadAction<Partial<ClientState['id']>>) => {
-			state.id = action.payload;
+		setshowgenerator: (state, action: PayloadAction<Partial<ClientState['showGenerator']>>) => {
+			state.showGenerator = action.payload;
 		},
 	},
 });
 
-export const { setid } = slice.actions;
+export const { setshowgenerator } = slice.actions;
 export default slice.reducer;
