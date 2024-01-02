@@ -60,26 +60,31 @@ export function GeneratePasswordForm({ initialPassword }: { initialPassword: str
 
 	return (
 		<div>
-			<p className='p-2 px-3 border rounded-md mb-3 text-muted-foreground text-sm h-11 flex items-center justify-start'>{password}</p>
+			<p className='p-2 px-3 font-semibold border rounded-md mb-3 text-muted-foreground text-sm h-11 flex items-center justify-start'>{password}</p>
 			<div className='space-y-3'>
-				<div className='pb-2 pt-1 flex items-center justify-center gap-3'>
+				<div className='py-1 flex items-center justify-center gap-3'>
 					<StrengthBar strength={strength} />
 				</div>
-				<div className='flex items-center justify-between border p-3 rounded-md'>
-					<Label htmlFor='lowercase-letters'>Lowercase Letters</Label>
-					<Switch id='lowercase-letters' checked={lowercase} onCheckedChange={setlowercase} />
-				</div>
-				<div className='flex items-center justify-between border p-3 rounded-md'>
-					<Label htmlFor='uppercase-letters'>Uppercase Letters</Label>
-					<Switch id='uppercase-letters' checked={uppercase} onCheckedChange={setUppercase} />
-				</div>
-				<div className='flex items-center justify-between border p-3 rounded-md'>
-					<Label htmlFor='digits'>Digits</Label>
-					<Switch id='digits' checked={digits} onCheckedChange={setDigits} />
-				</div>
-				<div className='flex items-center justify-between border p-3 rounded-md'>
-					<Label htmlFor='special-characters'>Special Characters</Label>
-					<Switch id='special-characters' checked={specialCharacters} onCheckedChange={setSpecialCharacters} />
+				<div className='border rounded-md'>
+					<div className='flex items-center justify-between p-3'>
+						<Label htmlFor='lowercase-letters'>Lowercase Letters</Label>
+						<Switch id='lowercase-letters' checked={lowercase} onCheckedChange={setlowercase} />
+					</div>
+					<hr />
+					<div className='flex items-center justify-between p-3'>
+						<Label htmlFor='uppercase-letters'>Uppercase Letters</Label>
+						<Switch id='uppercase-letters' checked={uppercase} onCheckedChange={setUppercase} />
+					</div>
+					<hr />
+					<div className='flex items-center justify-between p-3'>
+						<Label htmlFor='digits'>Digits</Label>
+						<Switch id='digits' checked={digits} onCheckedChange={setDigits} />
+					</div>
+					<hr />
+					<div className='flex items-center justify-between p-3'>
+						<Label htmlFor='special-characters'>Special Characters</Label>
+						<Switch id='special-characters' checked={specialCharacters} onCheckedChange={setSpecialCharacters} />
+					</div>
 				</div>
 				<div className='border p-3 rounded-md'>
 					<div className='flex items-center justify-between pb-1'>
