@@ -1,22 +1,42 @@
+import { Settings } from '@/lib/types';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-interface ClientState {
-	showGenerator: boolean;
+interface PasswordState {
+	strength: number;
+	password: string | null;
+	settings: Settings;
 }
 
-const initialState: ClientState = {
-	showGenerator: false,
+const initialState: PasswordState = {
+	strength: 5,
+	password: null,
+	settings: {
+		length: 8,
+		lowercase: true,
+		uppercase: true,
+		digits: true,
+		specialCharacters: true,
+	},
 };
 
 const slice = createSlice({
 	name: 'client',
 	initialState,
 	reducers: {
-		setshowgenerator: (state, action: PayloadAction<Partial<ClientState['showGenerator']>>) => {
-			state.showGenerator = action.payload;
+		setstrength: (state, action: PayloadAction<PasswordState['strength']>) => {
+			state.strength = action.payload;
+		},
+		setpassword: (state, action: PayloadAction<PasswordState['password']>) => {
+			state.password = action.payload;
+		},
+		setsettings: (state, action: PayloadAction<Partial<PasswordState['settings']>>) => {
+			state.settings = {
+				...state.settings,
+				...action.payload,
+			};
 		},
 	},
 });
 
-export const { setshowgenerator } = slice.actions;
+export const { setstrength, setpassword, setsettings } = slice.actions;
 export default slice.reducer;
