@@ -3,19 +3,21 @@
 import { useCopy } from '@/client/hooks/use-copy.hook';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Progress } from '@/components/ui/progress';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
+import { MAX_PASSWORD_STRENGTH } from '@/constants/app';
+import { calculatePasswordStrength } from '@/lib/utils/calculate-password-strength';
+import { cn } from '@/lib/utils/cn';
 import { generateStrongPassword } from '@/lib/utils/generate-strong-password';
 import { getLetterMix } from '@/lib/utils/get-letter-mix';
 import { Copy, MoveRight } from 'lucide-react';
-import { useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 export function GeneratePasswordForm({ initialPassword }: { initialPassword: string }) {
 	const { handleCopy } = useCopy();
 	const [password, setPassword] = useState(initialPassword);
 
-	const [progress, setProgress] = useState(13);
+	const [strength, setStrength] = useState(5);
 	const [lowercase, setlowercase] = useState(true);
 	const [uppercase, setUppercase] = useState(true);
 	const [digits, setDigits] = useState(true);
@@ -45,12 +47,19 @@ export function GeneratePasswordForm({ initialPassword }: { initialPassword: str
 		setLoading(false);
 	}
 
+	useEffect(() => {
+		// Get the strength of the password based on password
+		const passwordStrength = calculatePasswordStrength(password);
+
+		setStrength(passwordStrength.value);
+	}, [password]);
+
 	return (
 		<div>
 			<p className='p-2 px-3 border rounded-md mb-3 text-muted-foreground text-sm h-11 flex items-center justify-start'>{password}</p>
 			<div className='space-y-3'>
-				<div className='pb-2 pt-1'>
-					<Progress className='w-full' value={progress} />
+				<div className='pb-2 pt-1 flex items-center justify-center gap-3'>
+					<StrengthBar strength={strength} />
 				</div>
 				<div className='flex items-center justify-between border p-3 rounded-md'>
 					<Label htmlFor='lowercase-letters'>Lowercase Letters</Label>
@@ -101,5 +110,27 @@ export function GeneratePasswordForm({ initialPassword }: { initialPassword: str
 				</Button>
 			</div>
 		</div>
+	);
+}
+
+function StrengthBar({ strength }: { strength: number }) {
+	function generateClassName() {
+		if (strength > 4) return 'bg-green-400';
+		if (strength > 3) return 'bg-yellow-300';
+		if (strength > 2) return 'bg-orange-400';
+		if (strength > 1) return 'bg-rose-500';
+		if (strength > 0) return 'bg-red-600';
+		return 'bg-muted';
+	}
+
+	return (
+		<Fragment>
+			{Array.from({ length: strength }).map((_, index) => (
+				<span key={`${index}`} className={cn('h-2 w-full rounded-full', generateClassName())} />
+			))}
+			{Array.from({ length: MAX_PASSWORD_STRENGTH - strength }).map((_, index) => (
+				<span key={`${index}`} className='h-2 w-full rounded-full bg-muted' />
+			))}
+		</Fragment>
 	);
 }
