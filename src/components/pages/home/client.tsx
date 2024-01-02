@@ -12,6 +12,7 @@ import { generateStrongPassword } from '@/lib/utils/generate-strong-password';
 import { getLetterMix } from '@/lib/utils/get-letter-mix';
 import { Copy, MoveRight } from 'lucide-react';
 import { Fragment, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export function GeneratePasswordForm({ initialPassword }: { initialPassword: string }) {
 	const { handleCopy } = useCopy();
@@ -27,6 +28,8 @@ export function GeneratePasswordForm({ initialPassword }: { initialPassword: str
 	const [loading, setLoading] = useState(false);
 
 	function handleGeneratePassword() {
+		if (!(lowercase || uppercase || digits || specialCharacters)) return toast.info('Please select atleast one criterion');
+
 		setLoading(true);
 
 		// Settings to generate the password
@@ -43,6 +46,7 @@ export function GeneratePasswordForm({ initialPassword }: { initialPassword: str
 
 		// Generate strong password based on the LETTER_MIX and settings
 		const generatedPassword = generateStrongPassword(settings, LETTER_MIX);
+
 		setPassword(generatedPassword);
 		setLoading(false);
 	}
