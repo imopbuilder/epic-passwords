@@ -8,7 +8,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'Epic password',
+	title: 'Epic Password',
 	description: 'A Web app that uses next.js in typescript to generate a random password',
 };
 

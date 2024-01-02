@@ -23,7 +23,7 @@ export default function page() {
 			<main>
 				<section>
 					<div className='min-h-hvh max-w-maxi mx-auto flex items-start justify-center'>
-						<div className='py-16 w-full mx-[4%] sm:mx-0 sm:max-w-96'>
+						<div className='py-12 sm:py-16 w-full mx-[4%] sm:mx-0 sm:max-w-96'>
 							<GeneratePasswordForm initialPassword={initialPassword} />
 						</div>
 					</div>
