@@ -18,7 +18,16 @@ import { Fragment, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 export function GeneratePasswordForm(props: { initialPassword: string }) {
-	const { password } = useAppSelector((state) => state.passwordSlice);
+	const { strength, password } = useAppSelector((state) => state.passwordSlice);
+
+	function generateClassName() {
+		if (strength > 4) return 'ring-border';
+		if (strength > 3) return 'ring-yellow-300/30';
+		if (strength > 2) return 'ring-orange-400/30';
+		if (strength > 1) return 'ring-rose-500/30';
+		if (strength > 0) return 'ring-red-600/30';
+		return 'bg-muted';
+	}
 
 	useEffect(() => {
 		dispatch(setpassword(props.initialPassword));
@@ -26,7 +35,12 @@ export function GeneratePasswordForm(props: { initialPassword: string }) {
 
 	return (
 		<div>
-			<p className='p-2 px-3 font-semibold border rounded-md mb-3 text-muted-foreground text-sm h-11 flex items-center justify-start'>
+			<p
+				className={cn(
+					'p-2 px-3 font-semibold border rounded-md mb-3 text-muted-foreground text-sm h-11 flex items-center justify-start ring-2 ring-offset-2 ring-offset-background',
+					generateClassName(),
+				)}
+			>
 				{password ?? props.initialPassword}
 			</p>
 			<div className='space-y-3'>
