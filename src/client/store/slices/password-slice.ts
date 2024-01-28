@@ -20,7 +20,7 @@ const initialState: PasswordState = {
 };
 
 const slice = createSlice({
-	name: 'client',
+	name: 'password',
 	initialState,
 	reducers: {
 		setstrength: (state, action: PayloadAction<PasswordState['strength']>) => {
